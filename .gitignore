@@ -144,5 +144,7 @@ dist
 # ESLINT
 .eslintrc.json
 
+# VSCode workspace config
+*.code-workspace
 # End of https://www.toptal.com/developers/gitignore/api/node
 
