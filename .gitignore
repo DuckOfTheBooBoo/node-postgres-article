@@ -146,5 +146,9 @@ dist
 
 # VSCode workspace config
 *.code-workspace
+
+# Executable linux files
+*.sh
+
 # End of https://www.toptal.com/developers/gitignore/api/node
 
