@@ -4,8 +4,12 @@
   "description": "An API that can do CRUD about article.",
   "main": "server.js",
   "scripts": {
-	"start": "node ./server.js"
+    "start": "node ./server.js"
   },
   "author": "Arajdian Altaf",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^21.3.2",
+    "pg": "^8.10.0"
+  }
 }
