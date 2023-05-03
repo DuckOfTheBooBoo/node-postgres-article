@@ -1,0 +1,11 @@
+{
+  "name": "postgres-article",
+  "version": "1.0.0",
+  "description": "An API that can do CRUD about article.",
+  "main": "server.js",
+  "scripts": {
+	"start": "node ./server.js"
+  },
+  "author": "Arajdian Altaf",
+  "license": "ISC"
+}
