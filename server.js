@@ -10,7 +10,7 @@ const init = async () => {
   server.route([
     {
       method: 'GET',
-      path: '/',
+      path: '/api',
       handler: () => 'Hello from API',
     },
   ]);
