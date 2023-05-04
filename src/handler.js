@@ -17,7 +17,7 @@ const getArticles = (request, h) => {
   // Get Article by ID
   if (Object.keys(request.query).length > 0) {
     const {id} = request.query;
-    return pool.query(`SELECT * FROM ${TABLE} WHERE id=${id}`)
+    return pool.query(`SELECT * FROM ${TABLE} WHERE id=$1`, [id])
         .then((data) => {
           response = h.response({
             status: 'success',
