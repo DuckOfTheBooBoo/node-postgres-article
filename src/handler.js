@@ -87,7 +87,7 @@ const updateArticle = (request, h) => {
   return pool.query(`SELECT * FROM ${TABLE} WHERE id=$1`, [id])
       .then((data) => {
         if (data.rows.length !== 0) {
-          return pool.query(`UPDATE ${TABLE} SET title=$1, content=$2 WHERE id=$3`, [title, content, id])
+          return pool.query(`UPDATE ${TABLE} SET title=$1, content=$2, date_updated=CURRENT_DATE WHERE id=$3`, [title, content, id])
               .then((data) => {
                 response = h.response({
                   status: 'success',
