@@ -1,4 +1,6 @@
 const Hapi = require('@hapi/hapi');
+const { getArticles } = require('./src/queries');
+const { getAllArticles } = require('./src/handler');
 
 const init = async () => {
 
@@ -10,8 +12,8 @@ const init = async () => {
   server.route([
     {
       method: 'GET',
-      path: '/api',
-      handler: () => 'Hello from API',
+      path: '/api/articles',
+      handler: getAllArticles,
     },
   ]);
 

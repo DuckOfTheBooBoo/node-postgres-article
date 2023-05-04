@@ -21,6 +21,7 @@ const getArticles = async () => {
 
   } catch (err) {
     throw new Error(err);
+    return err;
   }
 };
 
@@ -36,3 +37,7 @@ const getArticles = async () => {
 //       `INSERT INTO ${TABLE} (title, date_created, content) VALUES ($1, $2, $3) RETURNING *`,
 //       [title, dateCreated, content]);
 // };
+
+module.exports = {
+  getArticles,
+};
