@@ -56,10 +56,6 @@ const getArticles = (request, h) => {
       });
 };
 
-const getArticleById = (request, h) => {
-  const {id} = request.params;
-  console.log(id);
-};
 
 module.exports = {
   getArticles,
