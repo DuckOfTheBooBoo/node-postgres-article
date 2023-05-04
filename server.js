@@ -1,5 +1,10 @@
 const Hapi = require('@hapi/hapi');
-const {getArticles, addArticle, updateArticle} = require('./src/handler');
+const {
+  getArticles,
+  addArticle,
+  updateArticle,
+  deleteArticle,
+} = require('./src/handler');
 
 const init = async () => {
 
@@ -23,6 +28,11 @@ const init = async () => {
       method: 'PUT',
       path: '/api/articles',
       handler: updateArticle,
+    },
+    {
+      method: 'DELETE',
+      path: '/api/articles',
+      handler: deleteArticle,
     },
   ]);
 

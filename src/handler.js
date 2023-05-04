@@ -83,11 +83,47 @@ const updateArticle = (request, h) => {
   const {id} = request.query;
   const {title, content} = request.payload;
 
-  return pool.query(`UPDATE ${TABLE} SET title=$1, content=$2 WHERE id=$3`, [title, content, id])
+  // Check if row with id exist
+  return pool.query(`SELECT * FROM ${TABLE} WHERE id=$1`, [id])
+      .then((data) => {
+        if (data.rows.length !== 0) {
+          return pool.query(`UPDATE ${TABLE} SET title=$1, content=$2 WHERE id=$3`, [title, content, id])
+              .then((data) => {
+                response = h.response({
+                  status: 'success',
+                  message: `Article updated succesfully`,
+                });
+                response.code(200);
+                return response;
+              })
+              .catch((error) => {
+                response = h.response({
+                  status: 'fail',
+                  meesage: error.message,
+                });
+                response.code(400);
+                return response;
+              });
+        } else {
+          response = h.response({
+            status: 'fail',
+            message: `Article with ID ${id} doesn't exist`,
+          });
+          response.code(404);
+          return response;
+        }
+      });
+};
+
+const deleteArticle = (request, h) => {
+  let response;
+  const {id} = request.query;
+
+  return pool.query(`DELETE FROM ${TABLE} WHERE id=$1`, [id])
       .then((data) => {
         response = h.response({
           status: 'success',
-          message: `Article updated succesfully`,
+          message: `Article with ID ${id} deleted successfuly`,
         });
         response.code(200);
         return response;
@@ -95,7 +131,7 @@ const updateArticle = (request, h) => {
       .catch((error) => {
         response = h.response({
           status: 'fail',
-          meesage: error.message,
+          message: error.message,
         });
         response.code(400);
         return response;
@@ -106,4 +142,5 @@ module.exports = {
   getArticles,
   addArticle,
   updateArticle,
+  deleteArticle,
 };
