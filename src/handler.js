@@ -56,7 +56,30 @@ const getArticles = (request, h) => {
       });
 };
 
+const addArticle = (request, h) => {
+  let response;
+  const {title, content} = request.payload;
+
+  return pool.query(`INSERT INTO ${TABLE} (title, content) VALUES ($1, $2) RETURNING *`, [title, content])
+      .then((data) => {
+        response = h.response({
+          status: 'success',
+          message: `Article added with the ID of ${data.rows[0].id}`,
+        });
+        response.code(201);
+        return response;
+      })
+      .catch((error) => {
+        response = h.response({
+          status: 'fail',
+          meesage: error.message,
+        });
+        response.code(400);
+        return response;
+      });
+};
 
 module.exports = {
   getArticles,
+  addArticle,
 };

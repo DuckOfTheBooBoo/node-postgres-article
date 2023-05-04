@@ -1,5 +1,5 @@
 const Hapi = require('@hapi/hapi');
-const { getArticles } = require('./src/handler');
+const {getArticles, addArticle} = require('./src/handler');
 
 const init = async () => {
 
@@ -13,6 +13,11 @@ const init = async () => {
       method: 'GET',
       path: '/api/articles',
       handler: getArticles,
+    },
+    {
+      method: 'POST',
+      path: '/api/articles',
+      handler: addArticle,
     },
   ]);
 
