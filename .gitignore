@@ -150,5 +150,8 @@ dist
 # Executable linux files
 *.sh
 
+# DEV FILES
+note.txt
+
 # End of https://www.toptal.com/developers/gitignore/api/node
 
