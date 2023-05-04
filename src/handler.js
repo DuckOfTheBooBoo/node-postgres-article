@@ -79,7 +79,31 @@ const addArticle = (request, h) => {
       });
 };
 
+const updateArticle = (request, h) => {
+  const {id} = request.query;
+  const {title, content} = request.payload;
+
+  return pool.query(`UPDATE ${TABLE} SET title=$1, content=$2 WHERE id=$3`, [title, content, id])
+      .then((data) => {
+        response = h.response({
+          status: 'success',
+          message: `Article updated succesfully`,
+        });
+        response.code(200);
+        return response;
+      })
+      .catch((error) => {
+        response = h.response({
+          status: 'fail',
+          meesage: error.message,
+        });
+        response.code(400);
+        return response;
+      });
+};
+
 module.exports = {
   getArticles,
   addArticle,
+  updateArticle,
 };
