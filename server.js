@@ -1,6 +1,5 @@
 const Hapi = require('@hapi/hapi');
-const { getArticles } = require('./src/queries');
-const { getAllArticles } = require('./src/handler');
+const { getArticles } = require('./src/handler');
 
 const init = async () => {
 
@@ -13,7 +12,7 @@ const init = async () => {
     {
       method: 'GET',
       path: '/api/articles',
-      handler: getAllArticles,
+      handler: getArticles,
     },
   ]);
 
