@@ -1,0 +1,26 @@
+body {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.top-heading {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background: white;
+    border-style: solid;
+    border-color: gray;
+    margin: 10px 0px;
+}
+
+.top-heading h1 {
+    text-align: center;
+    padding: 10px;
+}
+
+.article {
+    text-align: center;
+}
+
+.index-placeholder{
+    text-align: center;
+}
