@@ -70,24 +70,31 @@ const getArticles = (request, h) => {
 const addArticle = (request, h) => {
   const {title, content} = request.payload;
 
-  return pool.query(`INSERT INTO ${TABLE} (title, content) VALUES ($1, $2) RETURNING *`, [title, content])
-      .then((data) => {
-        return h.response({
-          status: 'success',
-          message: `Article added with the ID of ${data.rows[0].id}`,
-        }).code(201);
-      })
-      .catch((error) => {
+  if (title && content) {
+    return pool.query(`INSERT INTO ${TABLE} (title, content) VALUES ($1, $2) RETURNING *`, [title, content])
+        .then((data) => {
+          return h.response({
+            status: 'success',
+            message: `Article added with the ID of ${data.rows[0].id}`,
+          }).code(201);
+        })
+        .catch((error) => {
 
-        if (error.code === 'ECONNREFUSED') {
-          return h.response({status: 'fail', message: 'Unable to connect to database.'}).code(500);
-        }
+          if (error.code === 'ECONNREFUSED') {
+            return h.response({status: 'fail', message: 'Unable to connect to database.'}).code(500);
+          }
 
-        return h.response({
-          status: 'fail',
-          meesage: error.message,
-        }).code(400);
-      });
+          return h.response({
+            status: 'fail',
+            meesage: error.message,
+          }).code(400);
+        });
+  }
+
+  return h.response({
+    status: 'fail',
+    message: 'title and/or content cannot be empty',
+  }).code(400);
 };
 
 const updateArticle = (request, h) => {
