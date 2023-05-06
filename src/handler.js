@@ -1,8 +1,16 @@
 /* eslint-disable max-len */
-const {Pool} = require('pg');
+const pg = require('pg');
 const CONFIG = require('../config');
 
-const pool = new Pool({
+pg.types.setTypeParser(1114, (stringValue) => {
+  return stringValue;
+});
+
+pg.types.setTypeParser(1082, (stringValue) => {
+  return stringValue;
+});
+
+const pool = new pg.Pool({
   user: CONFIG.POSTGRES_USER,
   password: CONFIG.POSTGRES_PASS,
   host: CONFIG.POSTGRES_HOST,
