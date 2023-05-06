@@ -19,10 +19,18 @@ const getArticles = (request, h) => {
     const {id} = request.query;
     return pool.query(`SELECT * FROM ${TABLE} WHERE id=$1`, [id])
         .then((data) => {
+
+          if (data.rows.length > 0) {
+            return h.response({
+              status: 'success',
+              data: data.rows,
+            }).code(200);
+          }
+
           return h.response({
-            status: 'success',
-            data: data.rows,
-          }).code(200);
+            status: 'fail',
+            message: `No article with ID ${id}`,
+          }).code(404);
 
         })
         .catch((error) => {
