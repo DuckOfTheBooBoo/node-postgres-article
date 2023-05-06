@@ -9,10 +9,12 @@ const pool = new Pool({
   database: CONFIG.POSTGRES_DB,
   port: 5432,
 });
+
 const TABLE = CONFIG.POSTGRES_DB_TABLE;
 
 const getArticles = (request, h) => {
-  let response;
+  // let response;
+  const response = h.response;
 
   // Get Article by ID
   if (Object.keys(request.query).length > 0) {
@@ -27,6 +29,11 @@ const getArticles = (request, h) => {
           return response;
         })
         .catch((error) => {
+
+          if (error.code === 'ECONNREFUSED') {
+            return h.response({status: 'fail', message: 'Unable to connect to database.'}).code(500);
+          }
+
           response = h.response({
             status: 'fail',
             message: error.message,
@@ -47,6 +54,11 @@ const getArticles = (request, h) => {
         return response;
       })
       .catch((error) => {
+
+        if (error.code === 'ECONNREFUSED') {
+          return h.response({status: 'fail', message: 'Unable to connect to database.'}).code(500);
+        }
+
         response = h.response({
           status: 'fail',
           message: error.message,
@@ -70,6 +82,11 @@ const addArticle = (request, h) => {
         return response;
       })
       .catch((error) => {
+
+        if (error.code === 'ECONNREFUSED') {
+          return h.response({status: 'fail', message: 'Unable to connect to database.'}).code(500);
+        }
+
         response = h.response({
           status: 'fail',
           meesage: error.message,
@@ -97,6 +114,11 @@ const updateArticle = (request, h) => {
                 return response;
               })
               .catch((error) => {
+
+                if (error.code === 'ECONNREFUSED') {
+                  return h.response({status: 'fail', message: 'Unable to connect to database.'}).code(500);
+                }
+
                 response = h.response({
                   status: 'fail',
                   meesage: error.message,
@@ -129,6 +151,11 @@ const deleteArticle = (request, h) => {
         return response;
       })
       .catch((error) => {
+
+        if (error.code === 'ECONNREFUSED') {
+          return h.response({status: 'fail', message: 'Unable to connect to database.'}).code(500);
+        }
+
         response = h.response({
           status: 'fail',
           message: error.message,
