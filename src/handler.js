@@ -137,10 +137,18 @@ const deleteArticle = (request, h) => {
 
   return pool.query(`DELETE FROM ${TABLE} WHERE id=$1`, [id])
       .then((data) => {
+
+        if (data.rowCount > 0) {
+          return h.response({
+            status: 'success',
+            message: `Article with ID ${id} deleted successfuly`,
+          }).code(200);
+        }
+
         return h.response({
-          status: 'success',
-          message: `Article with ID ${id} deleted successfuly`,
-        }).code(200);
+          status: 'fail',
+          message: `Article with ID ${id} doesn't exist`,
+        }).code(404);
       })
       .catch((error) => {
 
