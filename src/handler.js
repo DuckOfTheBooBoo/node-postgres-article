@@ -173,9 +173,36 @@ const deleteArticle = (request, h) => {
       });
 };
 
+const serveArticle = (request, h) => {
+  const {param} = request.params;
+
+  return pool.query(`SELECT * FROM ${TABLE} WHERE url_path=$1`, [param])
+      .then((data) => {
+
+        // Check if query returns a data
+        if (data.rows.length > 0) {
+          const queryRes = data.rows[0];
+          const title = queryRes.title;
+          const dateCreated = queryRes.date_created;
+          const dateUpdated = queryRes.date_updated;
+          const content = queryRes.content;
+
+          return h.view('post.hbs', {
+            title: title,
+            date_created: dateCreated,
+            date_updated: dateUpdated,
+            content: content,
+          });
+        }
+
+        return h.response({status: 'fail', message: 'Article not found'}).code(404);
+      });
+};
+
 module.exports = {
   getArticles,
   addArticle,
   updateArticle,
   deleteArticle,
+  serveArticle,
 };

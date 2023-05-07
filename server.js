@@ -8,6 +8,7 @@ const {
   addArticle,
   updateArticle,
   deleteArticle,
+  serveArticle,
 } = require('./src/handler');
 
 const ALLOWED_STATIC_DIR = ['src', 'styles'];
@@ -25,9 +26,11 @@ const init = async () => {
   server.views({
     engines: {
       html: Handlebars,
+      hbs: Handlebars,
     },
     relativeTo: __dirname,
     path: './templates',
+    defaultExtension: 'html',
   });
 
   server.ext('onPostHandler', (request, h) => {
@@ -46,6 +49,7 @@ const init = async () => {
       path: '/',
       handler: (request, h) => h.view('index'),
     },
+    // Serve static files
     {
       method: 'GET',
       path: '/{param}/{param1*}',
@@ -64,6 +68,11 @@ const init = async () => {
         response.code(403);
         return response;
       },
+    },
+    {
+      method: 'GET',
+      path: '/post/{param}',
+      handler: serveArticle,
     },
     {
       method: 'GET',
