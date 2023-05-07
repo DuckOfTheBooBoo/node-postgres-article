@@ -14,28 +14,16 @@
     <div class="index-placeholder" id="empty-msg">
         <h1>No Articles, create a new one.</h1>
     </div>
-    <div class="articles" id="articles-div">
-        <!-- <div class="article one">
-            <a href=""><h2>Article One</h2></a>
-            <div class="sub-heading">
-                <h4>Date Created: 2023-05-03</h4>
-                <h4>Date Updated: 2023-05-04</h4>
-            </div>
-            <div class="content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate rem nisi deleniti architecto...</p>
-            </div>
-            <div class="options">
-                <a href="">Edit</a>
-                <a href="">Delete</a>
-            </div>
-        </div> -->
-    </div>
+    <div class="articles" id="articles-div"></div>
+
     <script src="../src/make-request.js"></script>
     <script src="../src/utils.js"></script>
     <script>
+        const host = window.location.href;
         const articlesDiv = document.getElementById('articles-div');
         const emptyMsg = document.getElementById('empty-msg');
-        makeRequest('GET', 'http://localhost:8080/api/articles')
+        
+        makeRequest('GET', `${host}api/articles`)
             .then((data) => {
                 const articleResponse = data.data;
                 
@@ -50,7 +38,7 @@
                         const title = document.createElement('a');
                         const h2 = document.createElement('h2');
                         h2.textContent = article.title;
-                        title.href = '/' + titleToValidURL(article.title);
+                        title.href = '/post/' + titleToValidURL(article.title);
                         title.appendChild(h2);
     
                         // Date Created and Updated
@@ -82,6 +70,9 @@
                     emptyMsg.hidden = true;
                 }
 
+            })
+            .catch((error) => {
+                console.error(error.message);
             })
 
     </script>
