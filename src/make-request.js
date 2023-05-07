@@ -11,12 +11,13 @@ function makeRequest(method, endpoint) {
     request.open(method, endpoint, true);
 
     request.onload = function() {
-      if (request.status >= 200) {
+      if (request.status >= 200 && request.status < 400) {
         const response = JSON.parse(request.responseText);
         resolve(response);
 
       } else {
-        reject(new Error('Failed to load data from API.'));
+        const response = JSON.parse(request.responseText);
+        reject(response);
       }
     };
 
