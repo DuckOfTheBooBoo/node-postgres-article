@@ -153,5 +153,11 @@ dist
 # DEV FILES
 note.txt
 
+# Debug dir
+debug
+
+# NODEMON
+nodemon.json
+
 # End of https://www.toptal.com/developers/gitignore/api/node
 
