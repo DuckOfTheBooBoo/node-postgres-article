@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 const pg = require('pg');
 const CONFIG = require('../config');
+const {titleToValidURL} = require('./utils');
 
 pg.types.setTypeParser(1114, (stringValue) => {
   return stringValue;
@@ -77,9 +78,10 @@ const getArticles = (request, h) => {
 
 const addArticle = (request, h) => {
   const {title, content} = request.payload;
+  const urlPath = titleToValidURL(title);
 
   if (title && content) {
-    return pool.query(`INSERT INTO ${TABLE} (title, content) VALUES ($1, $2) RETURNING *`, [title, content])
+    return pool.query(`INSERT INTO ${TABLE} (title, url_path, content) VALUES ($1, $2, $3) RETURNING *`, [title, urlPath, content])
         .then((data) => {
           return h.response({
             status: 'success',

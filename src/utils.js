@@ -12,7 +12,7 @@ function titleToValidURL(title) {
 
     if (char === ' ') {
       validURL += '-';
-    } else if (char === ',') {
+    } else if (char === ',' || char === ':') {
       validURL += '';
     } else {
       validURL += char;
@@ -22,3 +22,6 @@ function titleToValidURL(title) {
   return validURL;
 }
 
+module.exports = {
+  titleToValidURL,
+};
