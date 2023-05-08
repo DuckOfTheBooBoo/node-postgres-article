@@ -59,6 +59,8 @@
 
                     articleResponse.forEach((article) => {
 
+                        const urlPath = titleToValidURL(article.title);
+
                         const articleDiv = document.createElement('div');
                         articleDiv.classList.add('article');
                         
@@ -66,7 +68,7 @@
                         const titleDiv = document.createElement('div');
                         titleDiv.classList.add('title');
                         const titleLink = document.createElement('a');
-                        titleLink.href = '/post/' + titleToValidURL(article.title);
+                        titleLink.href = '/post/' + urlPath;
                         const titleH2 = document.createElement('h2');
                         titleH2.textContent = article.title;
 
@@ -103,6 +105,7 @@
                         
                         const editLink = document.createElement('a');
                         editLink.classList.add('btn', 'edit');
+                        editLink.href = '/edit/' + urlPath;
 
                         const editIcon = document.createElement('i');
                         editIcon.classList.add('bi', 'bi-pencil');
@@ -116,6 +119,7 @@
 
                         const deleteLink = document.createElement('a');
                         deleteLink.classList.add('btn', 'delete');
+                        deleteLink.href = '/delete/' + urlPath;
 
                         const deleteIcon = document.createElement('i');
                         deleteIcon.classList.add('bi', 'bi-trash-fill');
