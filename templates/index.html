@@ -81,8 +81,13 @@
                         const dateDiv = document.createElement('div');
                         dateDiv.classList.add('date');
                         const dateH4 = document.createElement('h4');
-                        console.log(article.date_created);
-                        dateH4.textContent = new Date(article.date_created.toString(), {year: 'numeric', month: 'long', day: 'numeric'});
+                        const date = new Date(article.date_created).toLocaleString(
+                            'en', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            });
+                        dateH4.textContent = date
     
                         dateDiv.appendChild(dateH4);
                         bottomDiv.appendChild(dateDiv);
