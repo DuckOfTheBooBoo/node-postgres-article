@@ -1,3 +1,5 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 body {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
@@ -18,6 +20,60 @@ body {
 }
 
 .article {
+    font-family: inter;
+    margin-bottom: 10px;
+    background-color: #E9E9E9;
+    border-radius: 27px;
+    width: 500px;
+    height: fit-content;
+    padding-top: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.article a {
+    text-decoration: none;
+    color: black;
+}
+
+.bottom {
+    display: flex;
+
+}
+
+.date {
+    font-size: 20px;
+    width: 70%;
+    height: 100%;
+}
+
+.options {
+    display: flex;
+    width: 30%;
+    height: 100%;
+    justify-content: end;
+    gap: 10px;
+}
+
+.btn {
+    text-align: center;
+    display: inline-block;
+    border-radius: 7px;
+    width: 50px;
+    height: 50px;
+}
+
+.edit {
+    background-color: #0D5DD4;
+}
+
+.delete {
+    background-color: #DD0202;
+}
+
+.btn i {
+    font-size: 40px;
+    color: white;
     text-align: center;
 }
 
