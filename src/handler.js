@@ -110,12 +110,13 @@ const addArticle = (request, h) => {
 const updateArticle = (request, h) => {
   const {id} = request.query;
   const {title, content} = request.payload;
+  const urlPath = titleToValidURL(title);
 
   // Check if row with id exist
   return pool.query(`SELECT * FROM ${TABLE} WHERE id=$1`, [id])
       .then((data) => {
         if (data.rows.length !== 0) {
-          return pool.query(`UPDATE ${TABLE} SET title=$1, content=$2, date_updated=now() WHERE id=$3`, [title, content, id])
+          return pool.query(`UPDATE ${TABLE} SET title=$1, url_path=$2, content=$3, date_updated=now() WHERE id=$4`, [title, urlPath, content, id])
               .then((data) => {
                 return h.response({
                   status: 'success',
@@ -199,10 +200,20 @@ const serveArticle = (request, h) => {
       });
 };
 
+const deleteArticleNonAPI = (request, h) => {
+  const {param} = request.params;
+
+  return pool.query(`DELETE FROM ${TABLE} WHERE url_path=$1`, [param])
+      .then((data) => {
+        return h.redirect('/');
+      });
+};
+
 module.exports = {
   getArticles,
   addArticle,
   updateArticle,
   deleteArticle,
   serveArticle,
+  deleteArticleNonAPI,
 };

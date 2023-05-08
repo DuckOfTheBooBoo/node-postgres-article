@@ -9,6 +9,7 @@ const {
   updateArticle,
   deleteArticle,
   serveArticle,
+  deleteArticleNonAPI,
 } = require('./src/handler');
 
 const ALLOWED_STATIC_DIR = ['src', 'styles'];
@@ -49,6 +50,16 @@ const init = async () => {
       path: '/',
       handler: (request, h) => h.view('index'),
     },
+    {
+      method: 'GET',
+      path: '/post/{param}',
+      handler: serveArticle,
+    },
+    {
+      method: 'GET',
+      path: '/delete/{param}',
+      handler: deleteArticleNonAPI,
+    },
     // Serve static files
     {
       method: 'GET',
@@ -68,11 +79,6 @@ const init = async () => {
         response.code(403);
         return response;
       },
-    },
-    {
-      method: 'GET',
-      path: '/post/{param}',
-      handler: serveArticle,
     },
     {
       method: 'GET',
