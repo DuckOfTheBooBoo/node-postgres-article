@@ -35,6 +35,7 @@
                     articleResponse.forEach((article) => {
 
                         const urlPath = titleToValidURL(article.title);
+                        const uid = article.u_id;
 
                         const articleDiv = document.createElement('div');
                         articleDiv.classList.add('article');
@@ -80,7 +81,7 @@
                         
                         const editLink = document.createElement('a');
                         editLink.classList.add('btn', 'edit');
-                        editLink.href = '/edit/' + urlPath;
+                        editLink.href = '/edit/' + uid;
 
                         const editIcon = document.createElement('i');
                         editIcon.classList.add('bi', 'bi-pencil');
