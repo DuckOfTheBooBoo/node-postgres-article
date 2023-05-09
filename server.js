@@ -53,6 +53,11 @@ const init = async () => {
     },
     {
       method: 'GET',
+      path: '/add',
+      handler: (request, h) => h.view('add'),
+    },
+    {
+      method: 'GET',
       path: '/post/{param}',
       handler: serveArticle,
     },

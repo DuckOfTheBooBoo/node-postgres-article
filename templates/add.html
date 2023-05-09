@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Article</title>
+</head>
+<body>
+    
+    <form action="/api/articles" id="add-article">
+        <label for="title">Title:</label><br>
+        <textarea name="title" cols="40" rows="2" form="add-article"></textarea><br>
+        <label for="content">Content:</label><br>
+        <textarea name="content" cols="100" rows="15" form="add-article"></textarea>
+        <br>
+        <input type="submit" value="Add Article">
+    </form>
+
+    <script>
+
+        const submitForm = async (data) => {
+            try {
+                const response = await fetch('/api/articles', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                    const parsed = await response.json();
+                    alert(parsed.message);
+                    window.location.href = '/';
+
+                } else {
+                    const parsed = await response.json();
+                    alert(parsed.message);
+                }
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        const form = document.getElementById('add-article');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const data = {};
+
+            // Appending all formData entries to data object
+            for (const [key, val] of formData.entries()) {
+                data[key] = val;
+            }
+
+            submitForm(data);
+
+        });
+    </script>
+    
+</body>
+</html>

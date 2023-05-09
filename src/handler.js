@@ -97,7 +97,7 @@ const addArticle = (request, h) => {
 
           return h.response({
             status: 'fail',
-            meesage: error.message,
+            message: error.message,
           }).code(400);
         });
   }
@@ -132,7 +132,7 @@ const updateArticle = (request, h) => {
 
                 return h.response({
                   status: 'fail',
-                  meesage: error.message,
+                  message: error.message,
                 }).code(400);
               });
         } else {
