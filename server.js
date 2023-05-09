@@ -10,6 +10,7 @@ const {
   deleteArticle,
   serveArticle,
   deleteArticleNonAPI,
+  editArticleNonAPI,
 } = require('./src/handler');
 
 const ALLOWED_STATIC_DIR = ['src', 'styles'];
@@ -54,6 +55,11 @@ const init = async () => {
       method: 'GET',
       path: '/post/{param}',
       handler: serveArticle,
+    },
+    {
+      method: 'GET',
+      path: '/edit/{param}',
+      handler: editArticleNonAPI,
     },
     {
       method: 'GET',
