@@ -22,6 +22,26 @@ function titleToValidURL(title) {
   return validURL;
 }
 
+/**
+ * Generate of 6 char long of unique id
+ * @return {String} - 6 Char of unique id.
+ */
+function makeUniqueId() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
+  let uid = '';
+
+  while (uid.length < 6) {
+    const charIndex = Math.floor(Math.random() * chars.length);
+    const char = chars.charAt(charIndex);
+
+    uid += char;
+  }
+
+  return uid;
+}
+
 module.exports = {
   titleToValidURL,
+  makeUniqueId,
 };
