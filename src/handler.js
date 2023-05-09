@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 const pg = require('pg');
 const CONFIG = require('../config');
-const {titleToValidURL} = require('./utils');
+const {titleToValidURL, makeUniqueId} = require('./utils');
 
 pg.types.setTypeParser(1114, (stringValue) => {
   return stringValue;
@@ -79,9 +79,10 @@ const getArticles = (request, h) => {
 const addArticle = (request, h) => {
   const {title, content} = request.payload;
   const urlPath = titleToValidURL(title);
+  const uid = makeUniqueId();
 
   if (title && content) {
-    return pool.query(`INSERT INTO ${TABLE} (title, url_path, content) VALUES ($1, $2, $3) RETURNING *`, [title, urlPath, content])
+    return pool.query(`INSERT INTO ${TABLE} (u_id, title, url_path, content) VALUES ($1, $2, $3, $4) RETURNING *`, [uid, title, urlPath, content])
         .then((data) => {
           return h.response({
             status: 'success',
@@ -108,15 +109,15 @@ const addArticle = (request, h) => {
 };
 
 const updateArticle = (request, h) => {
-  const {id} = request.query;
+  const {id=0, uid=''} = request.query;
   const {title, content} = request.payload;
   const urlPath = titleToValidURL(title);
 
   // Check if row with id exist
-  return pool.query(`SELECT * FROM ${TABLE} WHERE id=$1`, [id])
+  return pool.query(`SELECT * FROM ${TABLE} WHERE id=$1 OR u_id=$2`, [id, uid])
       .then((data) => {
         if (data.rows.length !== 0) {
-          return pool.query(`UPDATE ${TABLE} SET title=$1, url_path=$2, content=$3, date_updated=now() WHERE id=$4`, [title, urlPath, content, id])
+          return pool.query(`UPDATE ${TABLE} SET title=$1, url_path=$2, content=$3, date_updated=now() WHERE id=$4 OR u_id=$5`, [title, urlPath, content, id, uid])
               .then((data) => {
                 return h.response({
                   status: 'success',
@@ -200,6 +201,28 @@ const serveArticle = (request, h) => {
       });
 };
 
+const editArticleNonAPI = (request, h) => {
+  const {param} = request.params;
+
+  return pool.query(`SELECT * FROM ${TABLE} WHERE u_id=$1`, [param])
+      .then((data) => {
+
+        // Check if query returns a data
+        if (data.rows.length > 0) {
+          const queryRes = data.rows[0];
+          const title = queryRes.title;
+          const content = queryRes.content;
+
+          return h.view('edit.hbs', {
+            title: title,
+            content: content,
+          });
+        }
+
+        return h.response({status: 'fail', message: 'Article not found'}).code(404);
+      });
+};
+
 const deleteArticleNonAPI = (request, h) => {
   const {param} = request.params;
 
@@ -215,5 +238,6 @@ module.exports = {
   updateArticle,
   deleteArticle,
   serveArticle,
+  editArticleNonAPI,
   deleteArticleNonAPI,
 };
