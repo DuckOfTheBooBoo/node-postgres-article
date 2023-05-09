@@ -6,13 +6,14 @@
 function titleToValidURL(title) {
   const lowerTitle = title.toLowerCase();
   let validURL = '';
+  const forbiddenChar = [',', ':', '?'];
 
   for (let i = 0; i < lowerTitle.length; i+=1) {
     const char = lowerTitle.charAt(i);
 
     if (char === ' ') {
       validURL += '-';
-    } else if (char === ',' || char === ':') {
+    } else if (forbiddenChar.includes(char)) {
       validURL += '';
     } else {
       validURL += char;
