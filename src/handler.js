@@ -19,6 +19,7 @@ const pool = new pg.Pool({
   port: 5432,
 });
 
+
 const TABLE = CONFIG.POSTGRES_DB_TABLE;
 
 const getArticles = (request, h) => {
@@ -231,6 +232,46 @@ const deleteArticleNonAPI = (request, h) => {
         return h.redirect('/');
       });
 };
+
+const makeTableIfNotExist = async () => {
+  const client = new pg.Client({
+    user: CONFIG.POSTGRES_USER,
+    password: CONFIG.POSTGRES_PASS,
+    host: CONFIG.POSTGRES_HOST,
+    database: CONFIG.POSTGRES_DB,
+    port: 5432,
+  });
+
+  try {
+
+    await client.connect();
+    await client.query(`CREATE TABLE IF NOT EXIST "articles" (
+      id SERIAL PRIMARY KEY,
+      u_id VARCHAR(6) NOT NULL,
+      title VARCHAR(120) NOT NULL,
+      date_created TIMESTAMP DEFAULT now() NOT NULL,
+      date_updated TIMESTAMP,
+      url_path VARCHAR(150) NOT NULL,
+      content TEXT NOT NULL
+    );`);
+    return true;
+  } catch (error) {
+    console.error(error.stack);
+    return false;
+  } finally {
+    await client.end();
+  }
+};
+
+// makeTableIfNotExist()
+//     .then((result) => {
+//       if (result) {
+//         console.log(result);
+//       }
+//     })
+//     .catch((error) => {
+//       console.error(error.stack);
+//     });
 
 module.exports = {
   getArticles,
