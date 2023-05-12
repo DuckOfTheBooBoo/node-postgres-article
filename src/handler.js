@@ -245,7 +245,7 @@ const makeTableIfNotExist = async () => {
   try {
 
     await client.connect();
-    await client.query(`CREATE TABLE IF NOT EXIST "articles" (
+    await client.query(`CREATE TABLE IF NOT EXISTS articles (
       id SERIAL PRIMARY KEY,
       u_id VARCHAR(6) NOT NULL,
       title VARCHAR(120) NOT NULL,
@@ -263,15 +263,7 @@ const makeTableIfNotExist = async () => {
   }
 };
 
-// makeTableIfNotExist()
-//     .then((result) => {
-//       if (result) {
-//         console.log(result);
-//       }
-//     })
-//     .catch((error) => {
-//       console.error(error.stack);
-//     });
+makeTableIfNotExist();
 
 module.exports = {
   getArticles,
