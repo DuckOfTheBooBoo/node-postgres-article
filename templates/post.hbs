@@ -11,7 +11,9 @@
     <h1>{{title}}</h1>
     <div class="dates">
         <h4>DATE CREATED: {{date_created}}</h4>
+        {{#if date_updated}}
         <h4>DATE UPDATED: {{date_updated}}</h4>
+        {{/if}}
     </div>
 
     <div class="content">
