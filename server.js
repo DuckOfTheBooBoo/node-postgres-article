@@ -3,6 +3,7 @@ const vision = require('@hapi/vision');
 const inert = require('@hapi/inert');
 const Handlebars = require('handlebars');
 const mime = require('mime');
+const Path = require('path');
 const {
   getArticles,
   addArticle,
@@ -74,21 +75,11 @@ const init = async () => {
     // Serve static files
     {
       method: 'GET',
-      path: '/{param}/{param1*}',
-      handler: (request, h) => {
-        const {param, param1} = request.params;
-
-        // eslint-disable-next-line max-len
-        if ((ALLOWED_STATIC_DIR.includes(param)) && (ALLOWED_STATIC_FILE.includes(param1))) {
-          return h.file(`${param}/${param1}`);
-        }
-
-        const response = h.response({
-          status: 'fail',
-          message: 'Forbidden. You are not authorized to access this resource.',
-        });
-        response.code(403);
-        return response;
+      path: '/public/{param*}',
+      handler: {
+        directory: {
+          path: Path.join(__dirname, 'public'),
+        },
       },
     },
     {
