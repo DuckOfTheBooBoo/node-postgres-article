@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 const pg = require('pg');
 const CONFIG = require('../config');
-const {titleToValidURL, makeUniqueId} = require('./utils');
+const {titleToValidURL, makeUniqueId, formatDate} = require('./utils');
 
 pg.types.setTypeParser(1114, (stringValue) => {
   return stringValue;
@@ -186,8 +186,8 @@ const serveArticle = (request, h) => {
         if (data.rows.length > 0) {
           const queryRes = data.rows[0];
           const title = queryRes.title;
-          const dateCreated = queryRes.date_created;
-          const dateUpdated = queryRes.date_updated;
+          const dateCreated = formatDate('en', queryRes.date_created);
+          const dateUpdated = formatDate('en', queryRes.date_updated);
           const content = queryRes.content;
 
           return h.view('post.hbs', {
