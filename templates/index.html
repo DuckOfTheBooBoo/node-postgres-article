@@ -14,7 +14,7 @@
         <a id="add-btn" href="/add">Add New Post</a>
     </div>
     <div class="index-placeholder" id="empty-msg">
-        <h1>No Articles, create a new one.</h1>
+        <h1 id="empty-msg-text">No Articles, create a new one.</h1>
     </div>
 
     <div class="articles" id="articles-div"></div>
@@ -25,8 +25,8 @@
         const host = window.location.href;
         const articlesDiv = document.getElementById('articles-div');
         const emptyMsg = document.getElementById('empty-msg');
+        const emptyMsgText = document.getElementById('empty-msg-text');
 
-        // makeRequest('GET', `${host}api/articles`)
         makeRequest('GET', `http://localhost:8080/api/articles`)
             .then((data) => {
                 const articleResponse = data.data;
@@ -133,6 +133,7 @@
             })
             .catch((error) => {
                 console.error(error.message);
+                emptyMsgText.textContent = error.message;
             })
 
     </script>

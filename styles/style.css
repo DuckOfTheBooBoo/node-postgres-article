@@ -1,11 +1,20 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+@media screen and (max-width: 45%) {
+    #articles-div {
+        width: 100%;
+    }
+}
+
 body {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    width: 100%;
 }
 
 .top-heading {
     top: 0;
+    width: 100%;
     z-index: 999;
     background: white;
     border-style: solid;
@@ -18,12 +27,16 @@ body {
     padding: 10px;
 }
 
+#articles-div {
+    width: 45%;
+}
+
 .article {
     font-family: inter;
     margin-bottom: 10px;
     background-color: #E9E9E9;
     border-radius: 27px;
-    width: 500px;
+    width: 100%;
     height: fit-content;
     padding-top: 5px;
     padding-left: 20px;
@@ -49,8 +62,9 @@ body {
 .options {
     display: flex;
     width: 30%;
-    height: 100%;
     justify-content: end;
+    align-items: center;
+    margin-left: 5px;
     gap: 10px;
 }
 
