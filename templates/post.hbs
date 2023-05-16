@@ -10,14 +10,33 @@
 <body>
     <h1>{{title}}</h1>
     <div class="dates">
-        <h4>DATE CREATED: {{date_created}}</h4>
-        {{#if date_updated}}
-        <h4>DATE UPDATED: {{date_updated}}</h4>
-        {{/if}}
+        <h4 id="date_created">DATE CREATED: {{date_created}}</h4>
+        <h4 id="date_updated" hidden>DATE UPDATED: {{date_updated}}</h4>
     </div>
 
     <div class="content">
         <p>{{content}}</p>
     </div>
+
+    <script src="../public/scripts/public-utils.js"></script>
+    <script>
+        const dateCreated = document.getElementById('date_created');
+        const dateUpdated = document.getElementById('date_updated');
+
+        const createdDateString = '{{date_created}}';
+        const createdDate = utcToLocalTime('{{date_created}}');
+
+        const updatedDateString = '{{date_updated}}';
+        let updatedDate;
+
+        if (updatedDateString) {
+            updatedDate = utcToLocalTime('{{date_updated}}');
+            dateUpdated.hidden = false;
+        }
+
+        dateCreated.textContent = "DATE CREATED: " + createdDate;
+        dateUpdated.textContent = Boolean(updatedDate) !== false ? "DATE CREATED: " + updatedDate : "";
+
+    </script>
 </body>
 </html>

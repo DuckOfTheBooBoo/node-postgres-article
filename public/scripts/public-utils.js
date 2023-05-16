@@ -47,3 +47,12 @@ function formatDate(locale, dateString) {
 
   return;
 }
+
+/* eslint-disable require-jsdoc */
+function utcToLocalTime(utcTimeString) {
+  const time = new Date(utcTimeString);
+  const offset = (new Date().getTimezoneOffset() / 60) * -1;
+
+  time.setHours(time.getHours() + offset);
+  return time;
+}

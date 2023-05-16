@@ -186,8 +186,8 @@ const serveArticle = (request, h) => {
         if (data.rows.length > 0) {
           const queryRes = data.rows[0];
           const title = queryRes.title;
-          const dateCreated = formatDate('en', queryRes.date_created);
-          const dateUpdated = formatDate('en', queryRes.date_updated);
+          const dateCreated = queryRes.date_created;
+          const dateUpdated = queryRes.date_updated;
           const content = queryRes.content;
 
           return h.view('post.hbs', {
