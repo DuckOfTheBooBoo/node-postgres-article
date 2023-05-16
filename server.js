@@ -43,6 +43,11 @@ const init = async () => {
     return h.continue;
   });
 
+  server.events.on('response', function(request) {
+    // eslint-disable-next-line max-len
+    console.log(request.info.remoteAddress + ': ' + request.method.toUpperCase() + ' ' + request.path + ' --> ' + request.response.statusCode);
+  });
+
   server.route([
     {
       method: 'GET',
