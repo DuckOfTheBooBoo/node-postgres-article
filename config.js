@@ -3,7 +3,7 @@ const CONFIG = {
   POSTGRES_PASS: process.env.DB_PASS,
   POSTGRES_DB: process.env.DB_NAME,
   POSTGRES_DB_TABLE: process.env.DB_TABLE_NAME,
-  POSTGRES_HOST: 'localhost',
+  POSTGRES_HOST: process.env.DB_HOST,
 };
 
 module.exports = CONFIG;
