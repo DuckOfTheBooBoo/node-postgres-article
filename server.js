@@ -14,9 +14,6 @@ const {
   editArticleNonAPI,
 } = require('./src/handler');
 
-const ALLOWED_STATIC_DIR = ['src', 'styles'];
-const ALLOWED_STATIC_FILE = ['make-request.js', 'style.css', 'utils.js'];
-
 const init = async () => {
 
   const server = Hapi.server({
