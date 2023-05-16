@@ -27,7 +27,7 @@
         const emptyMsg = document.getElementById('empty-msg');
         const emptyMsgText = document.getElementById('empty-msg-text');
 
-        makeRequest('GET', `http://localhost:8080/api/articles`)
+        makeRequest('GET', `${host}api/articles`)
             .then((data) => {
                 const articleResponse = data.data;
                 
