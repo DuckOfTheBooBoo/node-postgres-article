@@ -8,10 +8,12 @@
     <title>{{title}}</title>
 </head>
 <body>
-    <h1>{{title}}</h1>
-    <div class="dates">
-        <h4 id="date_created">DATE CREATED: {{date_created}}</h4>
-        <h4 id="date_updated" hidden>DATE UPDATED: {{date_updated}}</h4>
+    <div class="top-heading">
+        <h1>{{title}}</h1>
+        <div class="dates">
+            <h4 id="date_created"></h4>
+            <h4 id="date_updated" hidden></h4>
+        </div>
     </div>
 
     <div class="content">
@@ -34,8 +36,8 @@
             dateUpdated.hidden = false;
         }
 
-        dateCreated.textContent = "DATE CREATED: " + createdDate;
-        dateUpdated.textContent = Boolean(updatedDate) !== false ? "DATE CREATED: " + updatedDate : "";
+        dateCreated.textContent = "DATE CREATED: " + formatDate('en', createdDate);
+        dateUpdated.textContent = Boolean(updatedDate) !== false ? "DATE CREATED: " + formatDate('en', updatedDate) : "";
 
     </script>
 </body>
