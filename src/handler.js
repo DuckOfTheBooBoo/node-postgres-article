@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 const pg = require('pg');
 const CONFIG = require('../config');
-const {titleToValidURL, makeUniqueId, formatDate} = require('./utils');
+const {titleToValidURL, makeUniqueId} = require('./utils');
 
 pg.types.setTypeParser(1114, (stringValue) => {
   return stringValue;
