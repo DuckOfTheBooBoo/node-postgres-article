@@ -4,7 +4,7 @@
   "description": "An API that can do CRUD about article.",
   "main": "server.js",
   "scripts": {
-    "start": "node ./server.js",
+    "start": "HOST_ENV=prod node ./server.js",
     "start-dev": "nodemon ./server.js"
   },
   "author": "Arajdian Altaf",
