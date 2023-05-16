@@ -31,12 +31,12 @@ function titleToValidURL(title) {
 /**
  * Return date from raw date string to date type with formatted based on options
  * @param {String} locale e.g. en, fr, id
- * @param {String} dateString Valid string for Date()
+ * @param {Date} dateObject Valid string for Date()
  * @return {Date}
  */
-function formatDate(locale, dateString) {
-  if (dateString) {
-    return new Date(dateString).toLocaleDateString(locale, {
+function formatDate(locale, dateObject) {
+  if (dateObject) {
+    return dateObject.toLocaleDateString(locale, {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
